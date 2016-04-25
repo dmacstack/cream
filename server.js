@@ -20,7 +20,6 @@ var router = express();
 var server = http.createServer(router);
 var mongoose = require('mongoose');
 var io = socketio.listen(server);
-router.use(express.static(path.resolve(__dirname, 'client')));
 var bodyParser = require('body-parser');
 var messages = [];
 var sockets = [];
