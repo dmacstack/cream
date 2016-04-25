@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <title> Edu Chat </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <style>
+      body {
+        padding-top: 60px;
+      }
+      #round_button {
+        border-radius: 5px;
+        float:right;
+      }
+      #message_div {
+        overflow: scroll;
+        height: 300px;
+      }
+    </style>
+    <script>
+    var creamApp = angular.module('creamApp', ['ngRoute', 'angularMoment']);
+    creamApp.config(function($routeProvider){
+      $routeProvider
+      .when('/',{
+        templateUrl: 'partials/login.html'
+      })
+      .when('/chat', {
+        templateUrl: 'partials/chat.html',
+        controller: 'chatController'
+      })
+      .when('/video', {
+        templateUrl: 'partials/video.html'
+      })
+      .otherwise({
+        templateUrl: 'partials/login.html'
+      })
+    })
+    //UserFactory 
+      creamApp.factory('UserFactory', $http, $location){
+        factory = {};
+        users = [];
+        //logic
+      })
+        
+      
+      
+    //ChatFactory
+      creamApp.factory('ChatFactory', function($http, $location){
+        factory = {};
+        chat = {};
+        //logic
+      }) 
+   
+    //'chatController'
+     creamApp.ChatController('chatController', function($scope, ChatFactory) {
+        var socket = io.connect();
+
+        $scope.messages = [];
+        $scope.roster = [];
+        $scope.name = '';
+        $scope.text = '';
+
+        socket.on('connect', function () {
+          $scope.setName();
+        });
+
+        socket.on('message', function (msg) {
+          $scope.messages.push(msg);
+          $scope.$apply();
+        });
+
+        socket.on('roster', function (names) {
+          $scope.roster = names;
+          $scope.$apply();
+        });
+
+        $scope.send = function send() {
+          console.log('Sending message:', $scope.text);
+          socket.emit('message', $scope.text);
+          $scope.text = '';
+        };
+
+        $scope.setName = function setName() {
+          socket.emit('identify', $scope.name);
+        };
+      })
+    </script>
+  </head>
+  <body ng-app="creamApp">
+  
+    <div id="container">
+      <div  ng-view = "">
+        
+      <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>
+      
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+  </body>
+</html>
