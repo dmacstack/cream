@@ -6,35 +6,35 @@
 var http = require('http');
 var path = require('path');
 
-var async = require('async');
+var bsync = require('async');
+
 var socketio = require('socket.io');
 var express = require('express');
-// var morgan = require('morgan');
-// var passport	= require('passport');
-
-//
-// ## SimpleServer `SimpleServer(obj)`
-//
-// Creates a new instance of SimpleServer with the following options:
-//  * `port` - The HTTP port to listen on. If `process.env.PORT` is set, _it overrides this value_.
-//
-var router = express();
-var server = http.createServer(router);
-var mongoose = require('mongoose');
-var io = socketio.listen(server);
-var bodyParser = require('body-parser');
-router.use(bodyParser.json());
-router.use(express.static(path.join(__dirname + '/client')));
-
+var morgan = require('morgan');
+var passport	= require('passport');
 // server models
 require('./server/models/chat.js');
 require('./server/models/user.js');
 ////////
 
+var router = express();
+var server = http.createServer(router);
+var mongoose = require('mongoose');
+var io = socketio.listen(server);
+var bodyParser = require('body-parser');
+var jwt = require('jwt-simple');
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended: false}));
+router.use(express.static(path.join(__dirname + '/client')));
+// log to console
+router.use(morgan('dev'));
+// Use the passport package in our application
+router.use(passport.initialize());
+
 // require('./server/config/sockets.js');
 
-// require('./server/config/mongoose.js');
-// require('./server/config/routes.js')(router);
+var config = require('./server/config/mongoose.js');
+require('./server/config/routes.js')(router);
 
 //setting the sockets
 //the messages will be a way for the server to store the messaage information without using the database
@@ -82,7 +82,7 @@ io.on('connection', function (socket) {
     });
   });
 function updateRoster() {
-  async.map(
+  bsync.map(
     sockets,
     function (socket, callback) {
       socket.get('name', callback);

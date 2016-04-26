@@ -12,4 +12,8 @@ module.exports = function(router){
     router.post('/chat', function(req, res){
         chats.create(req, res);
     });
+    // demo Route (GET http://localhost:8080)
+    router.get('/', function(req, res) {
+      res.send('Hello! The API is at http://localhost:' + port + '/api');
+    });
 };
