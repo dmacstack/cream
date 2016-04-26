@@ -1,11 +1,11 @@
-<!doctype html>
-<html ng-app="creamApp">
+
+<html ng-app = "creamApp">
   <head>
     <title> Edu Chat </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
-        <style>
+      <style>
       body {
         padding-top: 60px;
       }
@@ -17,21 +17,26 @@
         overflow: scroll;
         height: 300px;
       }
+      
+      
     </style>
-    <script src="https://code.angularjs.org/1.5.5/angular.min.js"></script>
-    <script src="https://code.angularjs.org/1.5.5/angular-route.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <!--<script src="../node_modules/socket.io/socket.io.js"></script>-->
     <script src="/socket.io/socket.io.js"></script>
   
     <script>
     var creamApp = angular.module('creamApp', ['ngRoute']);
-    // var creamApp = angular.module('creamApp', []);
+
     creamApp.config(function($routeProvider){
       $routeProvider
-      .when('/',{
-        templateUrl: 'partials/login.html'
+      .when('/', {
+        templateUrl: 'partials/login.html',
+        controller: 'usersController'
       })
       .when('/chat', {
         templateUrl: 'partials/chat.html',
@@ -44,23 +49,48 @@
         templateUrl: 'partials/login.html'
       });
     });
+    
     //UserFactory 
-      creamApp.factory('UserFactory', function ($http, $location){
-        factory = {};
-        users = [];
-        //logic
+    
+      creamApp.factory('UserFactory', function($http, $location){
+       var factory = {};
+       var users = [];
+        // users = [{name:'john'},{name:'jane'},{name:'joe'}];
+       var currentUser = null;
+        
+        factory.addUser = function(callback, user){
+          $http.post('/chat', user).then(function(response){
+            currentUser = response.data;
+            callback(currentUser);
+          });
+        };
+        factory.getUser = function(callback){
+          callback(currentUser);
+        };
+        return factory;
       });
         
-      
+      creamApp.controller('usersController', function($scope, UserFactory){
+        $scope.addUser = function(user){
+        UserFactory.addUser(function(currentUser){
+          console.log(currentUser);
+          $scope.newUser = {};
+        });
+      };
+        UserFactory.getUser(function(userData){
+          $scope.currentUser = userData;
+        });
+      });
       
     //ChatFactory
+    
       creamApp.factory('ChatFactory', function($http, $location){
         factory = {};
         chats = [];
-        //logic
+        return factory;
       });
    
-    //'chatController'
+
      creamApp.controller('chatController', function($scope, ChatFactory) {
         var socket = io.connect();
 
@@ -84,25 +114,27 @@
         });
 
         $scope.send = function send() {
+          var elem = document.getElementById('message_div');
+          elem.scrollTop = elem.scrollHeight;
           console.log('Sending message:', $scope.text);
           socket.emit('message', $scope.text);
-          $scope.text = '';
+          $scope.text = "";
+
         };
 
         $scope.setName = function setName() {
           socket.emit('identify', $scope.name);
         };
       });
+
     </script>
   </head>
   <body>
-      <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>  
+    <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>
+    <div ng-view = "">
     <div id="container">
-      <div  ng-view = "">
-        
-
-      
-      </div>
+     
+    </div>
     </div>
 
 

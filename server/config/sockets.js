@@ -1,54 +1,21 @@
-//
-// # SimpleServer
-//
-// A simple chat server using Socket.IO, Express, and Async.
-//
 var http = require('http');
-var path = require('path');
-
-var bsync = require('async');
-
-var socketio = require('socket.io');
 var express = require('express');
-var morgan = require('morgan');
-var passport	= require('passport');
-// server models
-require('./server/models/chat.js');
-require('./server/models/user.js');
-////////
-
 var router = express();
+var async = require('async');
 var server = http.createServer(router);
-var mongoose = require('mongoose');
-var io = socketio.listen(server);
-var bodyParser = require('body-parser');
-var jwt = require('jwt-simple');
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({extended: false}));
-router.use(express.static(path.join(__dirname + '/client')));
-// log to console
-router.use(morgan('dev'));
-// Use the passport package in our application
-router.use(passport.initialize());
-
-// require('./server/config/sockets.js');
-
-
-var config = require('./server/config/mongoose.js');
-require('./server/config/routes.js')(router);
-
-
+var socketio = require('socket.io');
+var io = socketio.listen(server); 
 //setting the sockets
 //the messages will be a way for the server to store the messaage information without using the database
 var messages = [];
 //sockets array will allow the server to store all the socket 
-var sockets = [];
+var sockets = []; 
 io.on('connection', function (socket) {
     //display all the messages when each user logs in
     messages.forEach(function (data) {
       socket.emit('message', data);
     });
-    //puush each users sockets
+    //push each users sockets
     sockets.push(socket);
 
     socket.on('disconnect', function () {
@@ -84,7 +51,7 @@ io.on('connection', function (socket) {
     });
   });
 function updateRoster() {
-  bsync.map(
+  async.map(
     sockets,
     function (socket, callback) {
       socket.get('name', callback);
@@ -101,10 +68,3 @@ function broadcast(event, data) {
     socket.emit(event, data);
   });
 }
-
-server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
-  var addr = server.address();
-  console.log("Chat server listening at", addr.address + ":" + addr.port);
-});
-
-
