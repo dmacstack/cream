@@ -34,7 +34,8 @@ router.use(passport.initialize());
 // require('./server/config/sockets.js');
 
 
-var config = require('./server/config/mongoose.js');
+require('./server/config/mongoose.js');
+var config = require('./server/config/database'); // get db config file
 require('./server/config/routes.js')(router);
 
 

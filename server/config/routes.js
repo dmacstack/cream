@@ -13,7 +13,7 @@ module.exports = function(router){
         chats.create(req, res);
     });
     // demo Route (GET http://localhost:8080)
-    router.get('/', function(req, res) {
-      res.send('Hello! The API is at http://localhost:' + port + '/api');
+    router.get('/test', function(req, res) {
+      res.send('Hello! The API is at http://localhost:3000/test');
     });
 };
