@@ -7,6 +7,7 @@
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
     "angular": "^1.5.5",
+    "angular-momentjs": "^0.2.2",
     "angular-route": "^1.5.5",
     "async": "~0.2.8",
     "body-parser": "^1.15.0",

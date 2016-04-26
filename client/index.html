@@ -18,14 +18,16 @@
         height: 300px;
       }
     </style>
-    <script src="/js/angular.min.js"></script>
-    <script src="/js/angular-route.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.5/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.5/angular-route.min.js"></script>
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
   
     <script>
-    var creamApp = angular.module('creamApp', ['ngRoute', 'angularMoment']);
+    var creamApp = angular.module('creamApp', ['ngRoute']);
+    // var creamApp = angular.module('creamApp', []);
     creamApp.config(function($routeProvider){
       $routeProvider
       .when('/',{
@@ -59,7 +61,7 @@
       });
    
     //'chatController'
-     creamApp.ChatController('chatController', function($scope, ChatFactory) {
+     creamApp.controller('chatController', function($scope, ChatFactory) {
         var socket = io.connect();
 
         $scope.messages = [];
@@ -94,11 +96,11 @@
     </script>
   </head>
   <body>
-  
+      <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>  
     <div id="container">
       <div  ng-view = "">
         
-      <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>
+
       
       </div>
     </div>

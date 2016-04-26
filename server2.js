@@ -9,6 +9,8 @@ var path = require('path');
 var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
+// var morgan = require('morgan');
+// var passport	= require('passport');
 
 //
 // ## SimpleServer `SimpleServer(obj)`
@@ -21,32 +23,25 @@ var server = http.createServer(router);
 var mongoose = require('mongoose');
 var io = socketio.listen(server);
 var bodyParser = require('body-parser');
-var messages = [];
-var sockets = [];
 router.use(bodyParser.json());
 router.use(express.static(path.join(__dirname + '/client')));
 
-// models
+// server models
+// require('./server/models/chat.js');
+// require('./server/models/user.js');
+////////
 
-// Chat Model Bitches!!!!!
-// var Schema = mongoose.Schema;
-// var ChatSchema = new Schema ({
-//   room_name: String,
-//   message: String,
-//   _user: {type: Schema.ObjectId, ref: 'User'}
-// },
-// {
-//   timestamps: true
-// })
-// mongoose.model('ChatRoom', ChatSchema);
-
-//User Model Bitches!!!!
-
+//setting the sockets
+//the messages will be a way for the server to store the messaage information without using the database
+var messages = [];
+//sockets array will allow the server to store all the socket 
+var sockets = [];
 io.on('connection', function (socket) {
+    //display all the messages when each user logs in
     messages.forEach(function (data) {
       socket.emit('message', data);
     });
-
+    //puush each users sockets
     sockets.push(socket);
 
     socket.on('disconnect', function () {
@@ -104,6 +99,5 @@ server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
-
 
 
