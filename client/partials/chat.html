@@ -1,23 +1,25 @@
- <div controller="usersController" class="container">
+ <div class="container">
+   <div>
    <h1> Hello {{ currentUser.name }}</h1>
-      <div class="navbar navbar-fixed-top navbar-inverse">
+   </div>
         <div class="navbar-inner">
           <div class="pull-right">
             <a href="https://www.youtube.com/watch?v=PBwAxmrE194" class="brand">Insert some junk here</a>
           </div>
         </div>
-      </div>
       <div class="page-header">
-        <h1>Chat Example</h1>
       </div>
       <div class="row">
-        <div class="span3">
-          <ul class="nav nav-list well">
-            <li class="nav-header">Local Users</li>
-            <li ng-repeat="user in roster" ng-bind="user">
-            </li>
+        <div id="user_list" class="span3">
+          <ul>
+              <li ng-repeat="user in users">{{ user }}</li>
           </ul>
         </div>
+        <form ng-submit="selectChatRoom()">
+          <input type="text" ng-model="newChat.room">
+          <button>Submit</button>
+        </form>
+          <button ng-click="leaveRoom()">Leave</button>
         <div class="span9">
           <div id = "message_div">
           <table class="table table-striped table-bordered">
@@ -31,9 +33,8 @@
           </div>
           <div class="row controls">
             <form ng-submit="send()">
-              <div class="span2"><input type="text" class="input-block-level" ng-model="name" ng-change="setName()" placeholder="Your Name"></div>
               <div class="input-append span7">
-                <textarea class="span6" ng-model="text" placeholder="Message" autofocus=true></textarea> <br/>
+                <textarea class="span6" ng-model="text" placeholder="Write something {{ currentUser.name }}" autofocus=true></textarea> <br/>
                 <input type="submit" id= "round_button" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
               </div>
             </form>

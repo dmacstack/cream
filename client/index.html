@@ -1,5 +1,5 @@
 
-<html ng-app = "creamApp">
+<html>
   <head>
     <title> Edu Chat </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +37,7 @@
       })
       .when('/chat', {
         templateUrl: 'partials/chat.html',
-        controller: 'chatController'
+        controller: 'chatsController'
       })
       .when('/video', {
         templateUrl: 'partials/video.html'
@@ -55,29 +55,21 @@
         // users = [{name:'john'},{name:'jane'},{name:'joe'}];
        var currentUser = null;
         
-        factory.addUser = function(callback, user){
-          $http.post('/chat', user).then(function(response){
+        factory.addUser = function(user, callback){
+          $http.post('/user', user).then(function(response){
             currentUser = response.data;
             callback(currentUser);
           });
-        };
+        }
+        
         factory.getUser = function(callback){
           callback(currentUser);
-        };
+        }
+        
         return factory;
       });
-        
-      creamApp.controller('usersController', function($scope, UserFactory){
-        $scope.addUser = function(user){
-        UserFactory.addUser(function(currentUser){
-          console.log(currentUser);
-          $scope.newUser = {};
-        });
-      };
-        UserFactory.getUser(function(userData){
-          $scope.currentUser = userData;
-        });
-      });
+      
+      
       
     //ChatFactory
     
@@ -86,20 +78,63 @@
         chats = [];
         return factory;
       });
+        
+      creamApp.controller('usersController', function($scope, $location, UserFactory){
+       
+        var socket = io.connect();
+        var currentList;
+        
+        $scope.addUser = function(user){
+          UserFactory.addUser(user, function(userData){
+            $scope.newUser = {};
+            $location.path('/chat');
+          });
+        }
+
+        // UserFactory.getUser(function(currentUser){
+        //   $scope.currentUser = currentUser;
+        //   socket.emit('alive_user', currentUser);
+        //   socket.on('update_list', function(incoming){
+        //       currentList = document.getElementById('user_list');
+        //       currentList.innerHTML = incoming.name + "<br/>";
+        //     })
+        //   })
+      
+        
+
+      });
+
    
     //chatController
     
-     creamApp.controller('chatController', function($scope, ChatFactory) {
+     creamApp.controller('chatsController', function($scope, ChatFactory, UserFactory) {
+        // UserFactory.getUser(function(currentUser){
+        //   $scope.currentUser = currentUser;
+        // })
+        
         var socket = io.connect();
-
+        var currentlist;
+        
+        $scope.users = [];
         $scope.messages = [];
         $scope.roster = [];
         $scope.name = '';
         $scope.text = '';
 
+        UserFactory.getUser(function(currentUser){
+          $scope.currentUser = currentUser;
+          socket.emit('alive_user', currentUser);
+          socket.on('userList', function(incoming){
+            $scope.users = incoming.clients;
+            console.log($scope.users);
+
+            })
+          })
+
         socket.on('connect', function () {
           $scope.setName();
         });
+      
 
         socket.on('message', function (msg) {
           $scope.messages.push(msg);
@@ -110,6 +145,9 @@
           $scope.roster = names;
           $scope.$apply();
         });
+        
+      
+        
 
         $scope.send = function send() {
           var elem = document.getElementById('message_div');
@@ -123,11 +161,23 @@
         $scope.setName = function setName() {
           socket.emit('identify', $scope.name);
         };
+        
+        $scope.selectChatRoom = function(){
+          console.log($scope.newChat);
+          socket.emit('room', $scope.newChat);
+          $scope.newChat = {};
+        }
+    
+        $scope.leaveRoom = function(){
+          socket.emit('leaveRoom', {});
+              
+        }
+        
       });
 
     </script>
   </head>
-  <body>
+  <body ng-app = "creamApp">
     
     <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>
     
