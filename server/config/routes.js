@@ -1,9 +1,9 @@
 var users = require('./../controllers/usersController.js');
 var chats = require('./../controllers/chatsController.js');
 
-module.exports = function(router, passport){
+module.exports = function(router, passport, io){
     router.post('/login', function(req, res){
-        users.findUser(req, res);
+        users.findUser(req, res, io);
     });
     
     router.get('/chat', function(req, res){

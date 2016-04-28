@@ -29,6 +29,8 @@
     <script src="/socket.io/socket.io.js"></script>
   
     <script>
+    var socket = io.connect();
+
     var creamApp = angular.module('creamApp', ['ngRoute']);
     creamApp.config(function($routeProvider){
       $routeProvider
@@ -51,7 +53,6 @@
     //UserFactory 
     
       creamApp.factory('UserFactory', function($http, $location){
-    
 
        var factory = {};
        var users = [];
@@ -61,6 +62,9 @@
         factory.addUser = function(user, callback){
 
           $http.post('/signup', user).then(function(response){
+            console.log('**********************************************');
+            console.log(response);
+            console.log('**********************************************');
             currentUser = response.config.data.name;
             if (currentUser) {
               $location.path('/chat');
@@ -70,7 +74,10 @@
         };
 
         factory.loginUser = function(loginInfo, callback) {
-          $http.post('/login', {user: loginInfo}).then(function(response){
+          $http.post('/login', {user: loginInfo, socketID: socket.id}).then(function(response){
+            console.log('**********************************************');
+            console.log(response);
+            console.log('**********************************************');
             currentUser = response.data.local.name;
             if (currentUser) {
               $location.path('/chat');
@@ -85,11 +92,23 @@
         
         return factory;
       });
+    //ChatFactory
+    
+      creamApp.factory('ChatFactory', function($http, $location){
+        factory = {};
+        chats = [];
+        return factory;
+      });
 
-      creamApp.controller('usersController', function($scope, UserFactory) {
+      creamApp.controller('usersController', function($scope, $location, UserFactory) {
+
+        // var socket = io.connect();
+        var currentList;
+
         $scope.addUser = function(user){
-          UserFactory.addUser(user, function(){
+          UserFactory.addUser(user, function(userData){
               $scope.newUser = {};
+              $location.path('/chat');
           });
         };
 
@@ -103,60 +122,28 @@
           });
         };
       });
-      
-    //ChatFactory
-    
-      creamApp.factory('ChatFactory', function($http, $location){
-        factory = {};
-        chats = [];
-        return factory;
-      });
-        
-      creamApp.controller('usersController', function($scope, $location, UserFactory){
-       
-        var socket = io.connect();
-        var currentList;
-        
-        $scope.addUser = function(user){
-          UserFactory.addUser(user, function(userData){
-            $scope.newUser = {};
-            $location.path('/chat');
-          });
-        }
-
-        // UserFactory.getUser(function(currentUser){
-        //   $scope.currentUser = currentUser;
-        //   socket.emit('alive_user', currentUser);
-        //   socket.on('update_list', function(incoming){
-        //       currentList = document.getElementById('user_list');
-        //       currentList.innerHTML = incoming.name + "<br/>";
-        //     })
-        //   })
-      
-        
-
-      });
-
-   
-    //chatController
-    
+     //chatController
      creamApp.controller('chatsController', function($scope, $location, UserFactory, ChatFactory) {
-        var socket = io.connect();
+      console.log(socket.id);
+        // var socket = io.connect();
         var currentlist;
         
         $scope.users = [];
         $scope.messages = [];
-        $scope.roster = [];
         $scope.text = '';
 
         UserFactory.getUser(function(currentUser){
           $scope.currentUser = currentUser;
           socket.emit('alive_user', currentUser);
-          socket.on('userList', function(incoming){
-            $scope.users = incoming.clients;
-            console.log($scope.users);
+          });
 
-            })
+          socket.on('userList', function(incoming){
+            console.log('*******************');
+            console.log(incoming);
+            $scope.users = incoming.clients;
+            console.log('kelvin');
+            console.log($scope.users);
+            console.log('*******************');
           })
 
         socket.on('connect', function () {
@@ -173,9 +160,6 @@
           $scope.roster = names;
           $scope.$apply();
         });
-        
-      
-        
 
         $scope.send = function send() {
           var elem = document.getElementById('message_div');
