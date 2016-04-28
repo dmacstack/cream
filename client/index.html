@@ -51,6 +51,8 @@
     //UserFactory 
     
       creamApp.factory('UserFactory', function($http, $location){
+    
+
        var factory = {};
        var users = [];
         // users = [{name:'john'},{name:'jane'},{name:'joe'}];
@@ -91,7 +93,6 @@
 
           UserFactory.getUser(function(userData){
           $scope.currentUser = userData;
-          // console.log($scope.currentUser);
         });
 
         $scope.loginUser = function(loginInfo) {
@@ -112,7 +113,7 @@
    
     //chatController
     
-     creamApp.controller('chatController', function($scope, UserFactory, ChatFactory) {
+     creamApp.controller('chatController', function($scope, $location, UserFactory, ChatFactory) {
         var socket = io.connect();
 
         $scope.messages = [];
@@ -145,10 +146,8 @@
         $scope.setName = function setName() {
           UserFactory.getUser(function(userData){
             $scope.currentUser = userData;
-            console.log($scope.currentUser)
-        });
-
-          socket.emit('identify', $scope.currentUser);
+            socket.emit('identify', $scope.currentUser);
+          });
         };
       });
 

@@ -13,7 +13,7 @@ module.exports = function(router, passport){
     router.get('/success', function(req, res){
         res.send('success');
     });
-    
+
     router.post('/chat', function(req, res){
         chats.create(req, res);
     });
@@ -24,3 +24,17 @@ module.exports = function(router, passport){
         failureFlash : true // allow flash messages
     }));
 };
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    console.log('******************')
+    console.log(req)
+    console.log('******************')
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
