@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
       <style>
       body {
         padding-top: 60px;
@@ -55,28 +56,50 @@
         // users = [{name:'john'},{name:'jane'},{name:'joe'}];
        var currentUser = null;
         
-        factory.addUser = function(callback, user){
-          $http.post('/chat', user).then(function(response){
-            currentUser = response.data;
+        factory.addUser = function(user, callback){
+          $http.post('/signup', user).then(function(response){
+            currentUser = response.config.data.name;
+            if (currentUser) {
+              $location.path('/chat');
+            }
             callback(currentUser);
           });
         };
+
+        factory.loginUser = function(loginInfo, callback) {
+          $http.post('/login', {user: loginInfo}).then(function(response){
+            currentUser = response.data.local.name;
+            if (currentUser) {
+              $location.path('/chat');
+            }
+            callback(currentUser);
+          })
+        }
+
         factory.getUser = function(callback){
           callback(currentUser);
         };
         return factory;
       });
         
-      creamApp.controller('usersController', function($scope, UserFactory){
+      creamApp.controller('usersController', function($scope, UserFactory) {
         $scope.addUser = function(user){
-        UserFactory.addUser(function(currentUser){
-          console.log(currentUser);
-          $scope.newUser = {};
-        });
-      };
-        UserFactory.getUser(function(userData){
+          UserFactory.addUser(user, function(){
+              $scope.newUser = {};
+          });
+        };
+
+          UserFactory.getUser(function(userData){
           $scope.currentUser = userData;
+          // console.log($scope.currentUser);
         });
+
+        $scope.loginUser = function(loginInfo) {
+          UserFactory.loginUser(loginInfo, function(){
+            $scope.loginUser = {};
+          });
+        };
+
       });
       
     //ChatFactory
@@ -89,12 +112,11 @@
    
     //chatController
     
-     creamApp.controller('chatController', function($scope, ChatFactory) {
+     creamApp.controller('chatController', function($scope, UserFactory, ChatFactory) {
         var socket = io.connect();
 
         $scope.messages = [];
         $scope.roster = [];
-        $scope.name = '';
         $scope.text = '';
 
         socket.on('connect', function () {
@@ -121,7 +143,12 @@
         };
 
         $scope.setName = function setName() {
-          socket.emit('identify', $scope.name);
+          UserFactory.getUser(function(userData){
+            $scope.currentUser = userData;
+            console.log($scope.currentUser)
+        });
+
+          socket.emit('identify', $scope.currentUser);
         };
       });
 

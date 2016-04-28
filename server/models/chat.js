@@ -8,4 +8,4 @@ var ChatSchema = new Schema ({
 {
   timestamps: true
 });
-mongoose.model('ChatRoom', ChatSchema);
+mongoose.model('Chat', ChatSchema);

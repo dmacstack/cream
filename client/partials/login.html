@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <h1> Login or Create an Account </h1>
     <form>
         username: <input type="text" ng-model="newUser.name">
@@ -6,3 +6,84 @@
         <button ng-click="addUser(newUser)"> Submit </button>
     </form>
 </div>
+ -->
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CREAM</title>
+    <style>
+        body        { padding-top:80px; }
+
+        .leftContainer, .rightContainer{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="leftContainer col-sm-2 col-sm-offset-4">
+
+<div>
+
+    <h1><span class="fa fa-sign-in"></span> Login</h1>
+
+    <!-- show any messages that come back with authentication -->
+        <% if (loginMessage.length > 0) { %>
+            <div class="alert alert-danger"><%= loginMessage %></div>
+        <% } %>
+    <!-- LOGIN FORM -->
+    <form ng-submit="loginUser(getUser)">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" ng-model="getUser.email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" ng-model="getUser.password">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+    </form>
+
+    <hr>
+
+</div>
+
+</div>
+
+<div class="rightContainer col-sm-2">
+
+<div>
+
+    <h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+    <!-- show any messages that come back with authentication -->
+    <% if (signUpMessage.length > 0) { %>
+        <div id="signUpMessage" class="alert alert-danger"><%= signUpMessage %></div>
+    <% } %>
+
+    <!-- LOGIN FORM -->
+    <form ng-submit="addUser(newUser)">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" ng-model="newUser.name">
+            <label>Email</label>
+            <input type="text" class="form-control" ng-model="newUser.email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input id="password" type="password" class="form-control" ng-model="newUser.password">
+            <label>Confirm Password</label>
+            <input id="confirmPassword" type="password" class="form-control" ng-model="newUser.confirmPassword">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+    </form>
+
+    <hr>
+
+</div>
+
+</div>
+</body>
+</html>

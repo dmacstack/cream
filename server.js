@@ -5,12 +5,12 @@
 //
 var http = require('http');
 var path = require('path');
-
+var port = process.env.PORT || 3000 || "0.0.0.0";
 var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
 // var morgan = require('morgan');
-// var passport	= require('passport');
+var passport	= require('passport');
 
 //
 // ## SimpleServer `SimpleServer(obj)`
@@ -23,9 +23,17 @@ var server = http.createServer(router);
 var mongoose = require('mongoose');
 var io = socketio.listen(server);
 var bodyParser = require('body-parser');
+var flash    = require('connect-flash');
+var session      = require('express-session');
+
 router.use(bodyParser.json());
 router.use(express.static(path.join(__dirname + '/client')));
 
+// required for passport
+router.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+router.use(passport.initialize());
+router.use(passport.session()); // persistent login sessions
+router.use(flash()); // use connect-flash for flash messages stored in session
 // server models
 require('./server/models/chat.js');
 require('./server/models/user.js');
@@ -33,8 +41,13 @@ require('./server/models/user.js');
 
 // require('./server/config/sockets.js');
 
-// require('./server/config/mongoose.js');
-// require('./server/config/routes.js')(router);
+var configDB = require('./server/config/database.js');
+
+// configuration ===============================================================
+mongoose.connect(configDB.url); // connect to our database
+
+require('./server/config/passport')(passport); // pass passport for configuration
+require('./server/config/routes.js')(router, passport);
 
 //setting the sockets
 //the messages will be a way for the server to store the messaage information without using the database
@@ -100,9 +113,7 @@ function broadcast(event, data) {
   });
 }
 
-server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
+server.listen(port, function(){
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
-
-
