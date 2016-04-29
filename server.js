@@ -5,7 +5,7 @@
 //
 var http = require('http');
 var path = require('path');
-var port = process.env.PORT || 3000 || "0.0.0.0";
+var port = process.env.PORT || 1337 || "0.0.0.0";
 var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
