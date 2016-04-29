@@ -11,7 +11,7 @@ function SimpleWebRTC(opts) {
     var self = this;
     var options = opts || {};
     var config = this.config = {
-            url: 'https://192.168.1.14:8888/',
+            url: 'https://cream.davidimacias.com/signal',
             socketio: {/* 'force new connection':true*/},
             connection: null,
             debug: false,
