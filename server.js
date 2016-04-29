@@ -58,52 +58,67 @@ io.on('connection', function (socket) {
     console.log("socket connected with ", socket.id);
     var username;
     var room;
-    messages.forEach(function (data) {
-      io.sockets.in(room).emit('message', data);
-    });
 
-    function temp(clients) {
-      console.log('inside temp function');
-      io.sockets.in(room).emit('userList', {clients: clients
-      });
-    }
 
     socket.on('room', function(roomName){
-      socket.join(roomName);
-      room = roomName;
+      socket.join(roomName.room);
+      room = roomName.room;
       // console.log(io.sockets.adapter.rooms[roomName]);
       //this gets all the socket ids in array from that is in a room
-      var arrClients = (Object.keys(io.sockets.adapter.rooms[roomName].sockets));
-      console.log(arrClients);
+      var arrClients = (Object.keys(io.sockets.adapter.rooms[roomName.room].sockets));
       //console.log(io.sockets.clients(roomName));
       var clients = [];
       //this loop gets the name of the user of all the sockets connected to the room
       for(var i=0; i<arrClients.length;i++){
         clients.push(io.sockets.connected[arrClients[i]].username);
       }
-      temp(clients);
-      console.log(clients);
 
-      })
-    
+      io.sockets.in(room).emit('userList', {clients: clients});
+      socket.emit('sendRoom', roomName); 
+      console.log('*********');
+
+    })
+
+    socket.on('sendOpenRooms', function(){
+        var openRooms =[];
+        var arrRooms = (Object.keys(io.sockets.adapter.rooms));
+          for(var i=0; i<arrRooms.length;i++){
+            var checkRoom = arrRooms[i].substring(0,2)
+              if(checkRoom == '/#') {
+              } else { 
+                openRooms.push(arrRooms[i]);
+              }
+          }    
+              console.log('XXXXXXXXXXX');
+              console.log(openRooms);    
+
+    socket.emit('sendArray', {openRooms: openRooms })
+    })
+
     socket.on('leaveRoom', function(data){
       socket.leave(room);
     });
     
     socket.on('disconnect', function () {
-      
+      socket.leave(room);      
     });
     
-    socket.on('alive_user', function(userName){
-      io.sockets.emit('update_list', userName);
-      socket.username = userName;
+    socket.on('alive_user', function (userName){
+        io.sockets.emit('update_list', userName);
+        socket.username = userName;
     })
     
     socket.emit('obtain_rooms', function(){
       
     })
     
-    
+    socket.on('message', function(data) {
+      var sender = {name: socket.username, msg: data};
+      io.sockets.in(room).emit('receivedMsg', sender);
+      // console.log('LOOK HERE');
+      // console.log(io.sockets.adapter.rooms);
+    })
+
 
   });
 

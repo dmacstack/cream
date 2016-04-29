@@ -1,5 +1,5 @@
  <div class="container">
-   <h1> Hello {{ currentUser.name }}</h1>
+   <h1> Hello {{ currentUser }}</h1>
       <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
           <div class="pull-right">
@@ -7,7 +7,7 @@
           </div>
         </div>
       <div class="page-header">
-        <h1>Room: {{'insert room variable here'}}</h1>
+        <h1>Room: {{ room }}</h1>
       </div>
       <div class="row">
         <div id="user_list" class="span3">
@@ -15,10 +15,19 @@
               <li ng-repeat="user in users">{{ user }}</li>
           </ul>
         </div>
-        <form ng-submit="selectChatRoom()">
-          <input type="text" ng-model="newChat.room">
-          <button>Submit</button>
-        </form>
+        <div id="chatroom_display" ng-hide="hideRoom">
+          <form ng-submit="selectChatRoom()">
+            <input type="text" ng-model="newChat.room">
+            <button>Submit</button>
+          </form>
+        </div>
+        <div id="other_rooms">
+          <form ng-submit="pickRoom()">
+            <select ng-model="chooseRoom.room" ng-options="openRoom for openRoom in openRooms">
+            </select>
+            <button>Select Room</button>
+          </form>
+        </div>
           <button ng-click="leaveRoom()">Leave</button>
         <div class="span9">
           <div id = "message_div">
