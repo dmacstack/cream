@@ -67,8 +67,13 @@
         controller: 'chatsController'
       })
       .when('/video', {
-        templateUrl: 'partials/video.html',
-        controller: 'chatsController'
+        templateUrl: 'partials/video.html'
+      })
+      .when('/broadcast', {
+        templateUrl: 'partials/broadcast.html'
+      })
+      .when('/watch', {
+        templateUrl: 'partials/watch.html'
       })
       .otherwise({
         templateUrl: 'partials/login.html',
