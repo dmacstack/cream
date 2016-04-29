@@ -3,10 +3,18 @@
   <head>
     <title> CREAM Chat </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-      <style>
+
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
       body {
         padding-top: 60px;
       }
@@ -19,19 +27,35 @@
         height: 300px;
       }
       
-      
+      .tabsdemoDynamicHeight md-content {
+        background-color: transparent !important;
+      }
+
+      .tabsdemoDynamicHeight md-content md-tabs {
+        background: #f6f6f6;
+        border: 1px solid #e1e1e1;
+      }
+
+      .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+        background: white;
+      }
+
+      .tabsdemoDynamicHeight md-content h1:first-child {
+        margin-top: 0;
+      }
+
+
+      /*
+      Copyright 2016 Google Inc. All Rights Reserved. 
+      Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+      */
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!--<script src="../node_modules/socket.io/socket.io.js"></script>-->
-    <script src="/socket.io/socket.io.js"></script>
+   
   
     <script>
     var socket = io.connect();
 
-    var creamApp = angular.module('creamApp', ['ngRoute']);
+    var creamApp = angular.module('creamApp', ['ngRoute','ngMaterial']);
     creamApp.config(function($routeProvider){
       $routeProvider
       .when('/', {
@@ -43,10 +67,12 @@
         controller: 'chatsController'
       })
       .when('/video', {
-        templateUrl: 'partials/video.html'
+        templateUrl: 'partials/video.html',
+        controller: 'chatsController'
       })
       .otherwise({
-        templateUrl: 'partials/login.html'
+        templateUrl: 'partials/login.html',
+        controller: 'usersController'
       });
     });
     
@@ -104,6 +130,7 @@
 
         // var socket = io.connect();
         var currentList;
+        $scope.loginregview = "signup";
 
         $scope.addUser = function(user){
           UserFactory.addUser(user, function(userData){
@@ -112,15 +139,18 @@
           });
         };
 
-          UserFactory.getUser(function(userData){
+        UserFactory.getUser(function(userData){
           $scope.currentUser = userData;
         });
 
         $scope.loginUser = function(loginInfo) {
           UserFactory.loginUser(loginInfo, function(){
-            $scope.loginUser = {};
+            $scope.getUser = {};
           });
         };
+
+
+
       });
      //chatController
      creamApp.controller('chatsController', function($scope, $location, UserFactory, ChatFactory) {
@@ -195,7 +225,7 @@
   <body ng-app = "creamApp">
     
     <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>
-    
+    <br><br>
     <div ng-view = "">
     <div id="container">
      
