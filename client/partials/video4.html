@@ -1,0 +1,18 @@
+<script src="https://simplewebrtc.com/latest-v2.js"></script> 
+<script type="text/javascript">
+	var webrtc = new SimpleWebRTC({
+  // the id/element dom element that will hold "our" video
+  localVideoEl: 'localVideo',
+  // the id/element dom element that will hold remote videos
+  remoteVideosEl: 'remotesVideos',
+  // immediately ask for camera access
+  autoRequestMedia: true
+});
+	webrtc.on('readyToCall', function () {
+  // you can name it anything
+  webrtc.joinRoom('room1');
+});
+	console.log('script executing:', webrtc)
+</script>
+<video height="300" id="localVideo" style="border:1px solid gray"></video>
+<div id="remotesVideos" style="border: 1px solid gray"></div>

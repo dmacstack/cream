@@ -1,17 +1,13 @@
-<script src="https://simplewebrtc.com/latest-v2.js"></script> 
-<script type="text/javascript">
-	var webrtc = new SimpleWebRTC({
-  // the id/element dom element that will hold "our" video
-  localVideoEl: 'localVideo',
-  // the id/element dom element that will hold remote videos
-  remoteVideosEl: 'remotesVideos',
-  // immediately ask for camera access
-  autoRequestMedia: true
-});
-	webrtc.on('readyToCall', function () {
-  // you can name it anything
-  webrtc.joinRoom('room1');
-});
-</script>
-<video height="300" id="localVideo"></video>
-<div id="remotesVideos"></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="node_modules/es5-shim/es5-shim.js"></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <p>Angular wrapper around the simple example from <a href="https://simplewebrtc.com/">simplewebrtc.com/</a>.
+  First start broadcasting from a new room using <a href="broadcast.html">broadcast.html</a>. Then
+  connect as many watchers as needed from <a href="watch.html">watch.html</a> page.
+  </p>
+</body>
+</html>
