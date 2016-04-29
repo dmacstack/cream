@@ -161,42 +161,53 @@
         $scope.users = [];
         $scope.messages = [];
         $scope.text = '';
+    
 
         UserFactory.getUser(function(currentUser){
+          console.log(currentUser);
           $scope.currentUser = currentUser;
           socket.emit('alive_user', currentUser);
-          });
+        });
 
           socket.on('userList', function(incoming){
-            console.log('*******************');
-            console.log(incoming);
             $scope.users = incoming.clients;
-            console.log('kelvin');
-            console.log($scope.users);
-            console.log('*******************');
+            $scope.$apply();
           })
 
-        socket.on('connect', function () {
-          $scope.setName();
-        });
-      
+          socket.on('connect', function () {
+            $scope.setName();
+          });
+        
 
-        socket.on('message', function (msg) {
-          $scope.messages.push(msg);
+        // socket.on('message', function (msg) {
+        //   $scope.messages.push(msg);
+        //   $scope.$apply();
+        // });
+
+        socket.on('sendRoom', function (data){
+          $scope.room = data.room;
           $scope.$apply();
         });
 
-        socket.on('roster', function (names) {
-          $scope.roster = names;
+        socket.emit('sendOpenRooms',{});
+
+        socket.on('sendArray', function (data){
+          $scope.openRooms = data.openRooms;
           $scope.$apply();
         });
+
+        socket.on('receivedMsg', function (data) {
+          console.log(data);
+          var info = document.getElementById('message_div');
+          info.innerHTML += '<p>' + data.name + ': ' + data.msg +'</p>'
+        })
 
         $scope.send = function send() {
           var elem = document.getElementById('message_div');
           elem.scrollTop = elem.scrollHeight;
-          console.log('Sending message:', $scope.text);
           socket.emit('message', $scope.text);
           $scope.text = "";
+          // $scope.$apply();
 
         };
 
@@ -208,16 +219,29 @@
         };
         
         $scope.selectChatRoom = function(){
-          console.log($scope.newChat);
+          // console.log($scope.newChat);
           socket.emit('room', $scope.newChat);
           $scope.newChat = {};
+          $scope.toggle();
+          socket.emit('sendOpenRooms',{});
         }
-    
+      
+        $scope.pickRoom = function (){
+          console.log($scope.chooseRoom);
+          socket.emit('room', $scope.chooseRoom);
+          $scope.chooseRoom = {};
+          socket.emit('sendOpenRooms', {}); 
+        }
+
+
         $scope.leaveRoom = function(){
-          socket.emit('leaveRoom', {});
-              
+          socket.emit('leaveRoom', {});      
         }
-        
+
+        $scope.toggle = function(){
+          $scope.hideRoom = !$scope.hideRoom;
+        }
+
       });
 
     </script>
