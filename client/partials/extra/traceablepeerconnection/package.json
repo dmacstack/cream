@@ -1,0 +1,92 @@
+{
+  "_args": [
+    [
+      "traceablepeerconnection@^1.0.0",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/rtcpeerconnection"
+    ]
+  ],
+  "_from": "traceablepeerconnection@>=1.0.0 <2.0.0",
+  "_id": "traceablepeerconnection@1.1.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/traceablepeerconnection",
+  "_nodeVersion": "4.3.1",
+  "_npmOperationalInternal": {
+    "host": "packages-6-west.internal.npmjs.com",
+    "tmp": "tmp/traceablepeerconnection-1.1.6.tgz_1456422188517_0.5906647676602006"
+  },
+  "_npmUser": {
+    "email": "fippo@goodadvice.pages.de",
+    "name": "fippo"
+  },
+  "_npmVersion": "2.14.12",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "traceablepeerconnection",
+    "raw": "traceablepeerconnection@^1.0.0",
+    "rawSpec": "^1.0.0",
+    "scope": null,
+    "spec": ">=1.0.0 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/rtcpeerconnection"
+  ],
+  "_resolved": "https://registry.npmjs.org/traceablepeerconnection/-/traceablepeerconnection-1.1.6.tgz",
+  "_shasum": "7d56b7e7e15485d2684d1b4225061f98e1563347",
+  "_shrinkwrap": null,
+  "_spec": "traceablepeerconnection@^1.0.0",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/rtcpeerconnection",
+  "author": {
+    "email": "fippo@andyet.net",
+    "name": "Philipp Hancke"
+  },
+  "bugs": {
+    "url": "https://github.com/fippo/traceablepeerconnection/issues"
+  },
+  "dependencies": {
+    "webrtc-adapter": "^1.0",
+    "wildemitter": "1.x"
+  },
+  "description": "Lowlevel RTCPeerConnection wrapper which allows tracing the API calls",
+  "devDependencies": {
+    "browserify": "^11.0",
+    "precommit-hook": "^3.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "7d56b7e7e15485d2684d1b4225061f98e1563347",
+    "tarball": "https://registry.npmjs.org/traceablepeerconnection/-/traceablepeerconnection-1.1.6.tgz"
+  },
+  "gitHead": "893c09c3f23b1d85d4ab694465aed487002e8132",
+  "homepage": "https://github.com/fippo/traceablepeerconnection#readme",
+  "keywords": [
+    "WebRTC",
+    "RTCPeerConnection"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "fippo@goodadvice.pages.de",
+      "name": "fippo"
+    }
+  ],
+  "name": "traceablepeerconnection",
+  "optionalDependencies": {},
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ],
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fippo/traceablepeerconnection.git"
+  },
+  "scripts": {
+    "lint": "jshint .",
+    "validate": "npm ls"
+  },
+  "version": "1.1.6"
+}

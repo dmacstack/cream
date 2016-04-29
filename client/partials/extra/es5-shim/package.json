@@ -1,0 +1,150 @@
+{
+  "_args": [
+    [
+      "es5-shim@4.1.7",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc"
+    ]
+  ],
+  "_from": "es5-shim@4.1.7",
+  "_id": "es5-shim@4.1.7",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/es5-shim",
+  "_nodeVersion": "2.3.0",
+  "_npmUser": {
+    "email": "ljharb@gmail.com",
+    "name": "ljharb"
+  },
+  "_npmVersion": "2.11.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "es5-shim",
+    "raw": "es5-shim@4.1.7",
+    "rawSpec": "4.1.7",
+    "scope": null,
+    "spec": "4.1.7",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "http://registry.npmjs.org/es5-shim/-/es5-shim-4.1.7.tgz",
+  "_shasum": "6f860cf749d4af2fe87fa960c94290f23c2a38e4",
+  "_shrinkwrap": null,
+  "_spec": "es5-shim@4.1.7",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc",
+  "bugs": {
+    "url": "http://github.com/es-shims/es5-shim/issues"
+  },
+  "contributors": [
+    {
+      "email": "kris@cixar.com",
+      "name": "Kris Kowal",
+      "url": "http://github.com/kriskowal/"
+    },
+    {
+      "email": "sami.samhuri@gmail.com",
+      "name": "Sami Samhuri",
+      "url": "http://samhuri.net/"
+    },
+    {
+      "email": "florian.schaefer@gmail.com",
+      "name": "Florian Schäfer",
+      "url": "http://github.com/fschaefer"
+    },
+    {
+      "email": "rfobic@gmail.com",
+      "name": "Irakli Gozalishvili",
+      "url": "http://jeditoolkit.com"
+    },
+    {
+      "email": "kitcambridge@gmail.com",
+      "name": "Kit Cambridge",
+      "url": "http://kitcambridge.github.com"
+    },
+    {
+      "email": "ljharb@gmail.com",
+      "name": "Jordan Harband",
+      "url": "https://github.com/ljharb/"
+    }
+  ],
+  "dependencies": {},
+  "description": "ECMAScript 5 compatibility shims for legacy JavaScript engines",
+  "devDependencies": {
+    "eslint": "^0.23.0",
+    "jasmine-node": "^1.14.5",
+    "jscs": "^1.13.1",
+    "replace": "^0.3.0",
+    "semver": "^4.3.6",
+    "uglify-js": "^2.4.23"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "6f860cf749d4af2fe87fa960c94290f23c2a38e4",
+    "tarball": "https://registry.npmjs.org/es5-shim/-/es5-shim-4.1.7.tgz"
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "gitHead": "73228b1966c3fed58abfb17922d871d119ee03c4",
+  "homepage": "http://github.com/es-shims/es5-shim/",
+  "keywords": [
+    "shim",
+    "es5",
+    "es5 shim",
+    "javascript",
+    "ecmascript",
+    "polyfill"
+  ],
+  "license": "MIT",
+  "main": "es5-shim.js",
+  "maintainers": [
+    {
+      "email": "kris.kowal@cixar.com",
+      "name": "kriskowal"
+    },
+    {
+      "email": "rfobic@gmail.com",
+      "name": "gozala"
+    },
+    {
+      "email": "ljharb@gmail.com",
+      "name": "ljharb"
+    }
+  ],
+  "name": "es5-shim",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/es-shims/es5-shim.git"
+  },
+  "scripts": {
+    "eslint": "eslint --reset tests/helpers/*.js tests/spec/*.js es5-shim.js es5-sham.js",
+    "jscs": "jscs tests/helpers/*.js tests/spec/*.js es5-shim.js es5-sham.js",
+    "lint": "npm run jscs && npm run eslint",
+    "minify": "npm run minify-shim && npm run minify-sham",
+    "minify-sham": "uglifyjs es5-sham.js --comments --source-map=es5-sham.map -m -b ascii_only=true,beautify=false > es5-sham.min.js",
+    "minify-shim": "uglifyjs es5-shim.js --comments --source-map=es5-shim.map -m -b ascii_only=true,beautify=false > es5-shim.min.js",
+    "test": "npm run lint && jasmine-node --matchall ./ tests/spec/",
+    "test-native": "jasmine-node --matchall tests/spec/"
+  },
+  "testling": {
+    "browsers": [
+      "iexplore/6.0..latest",
+      "firefox/3.0..6.0",
+      "firefox/18.0..latest",
+      "firefox/nightly",
+      "chrome/4.0..10.0",
+      "chrome/25.0..latest",
+      "chrome/canary",
+      "opera/10.0..latest",
+      "opera/next",
+      "safari/4.0..latest",
+      "ipad/6.0..latest",
+      "iphone/6.0..latest",
+      "android-browser/4.2"
+    ]
+  },
+  "version": "4.1.7"
+}

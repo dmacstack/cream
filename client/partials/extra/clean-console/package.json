@@ -1,0 +1,106 @@
+{
+  "_args": [
+    [
+      "clean-console@0.3.0",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc"
+    ]
+  ],
+  "_from": "clean-console@0.3.0",
+  "_id": "clean-console@0.3.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/clean-console",
+  "_npmUser": {
+    "email": "gleb.bahmutov@gmail.com",
+    "name": "bahmutov"
+  },
+  "_npmVersion": "1.4.28",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "clean-console",
+    "raw": "clean-console@0.3.0",
+    "rawSpec": "0.3.0",
+    "scope": null,
+    "spec": "0.3.0",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "http://registry.npmjs.org/clean-console/-/clean-console-0.3.0.tgz",
+  "_shasum": "9116445606ebffaaf1b3c4f0cae4b25c121a625a",
+  "_shrinkwrap": null,
+  "_spec": "clean-console@0.3.0",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc",
+  "author": {
+    "email": "gleb.bahmutov@gmail.com",
+    "name": "Gleb Bahmutov"
+  },
+  "bin": {
+    "clean-console": "index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/bahmutov/clean-console/issues"
+  },
+  "dependencies": {
+    "check-types": "1.4.0",
+    "console.json": "0.2.1",
+    "optimist": "0.6.1",
+    "q": "2.0.3",
+    "quote": "0.4.0",
+    "update-notifier": "0.1.10"
+  },
+  "description": "Quickly loads remote url in phantomjs to check of JavaScript console errors",
+  "devDependencies": {
+    "gt": "0.8.47",
+    "gulp": "3.8.11",
+    "gulp-jshint": "1.10.0",
+    "jshint-stylish": "1.0.2",
+    "pre-git": "0.2.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "9116445606ebffaaf1b3c4f0cae4b25c121a625a",
+    "tarball": "https://registry.npmjs.org/clean-console/-/clean-console-0.3.0.tgz"
+  },
+  "gitHead": "983daf4827399a19ed85742927c0bf3775c47d5d",
+  "homepage": "https://github.com/bahmutov/clean-console",
+  "keywords": [
+    "javascript",
+    "phantomjs",
+    "console",
+    "test"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "gleb.bahmutov@gmail.com",
+      "name": "bahmutov"
+    }
+  ],
+  "name": "clean-console",
+  "optionalDependencies": {},
+  "pre-commit": [
+    "gulp",
+    "npm test",
+    "npm version"
+  ],
+  "pre-push": [
+    "rm -rf node_modules",
+    "npm install",
+    "npm test"
+  ],
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/clean-console.git"
+  },
+  "scripts": {
+    "basic": "node index.js -i examples/basic/index.html -o",
+    "e2e": "gt test/e2e.js --output",
+    "test": "gulp && npm run unit && npm run e2e",
+    "unit": "gt test/test.js"
+  },
+  "version": "0.3.0"
+}

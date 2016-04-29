@@ -1,0 +1,83 @@
+{
+  "_args": [
+    [
+      "filetransfer@^2.0.0",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/simplewebrtc"
+    ]
+  ],
+  "_from": "filetransfer@>=2.0.0 <3.0.0",
+  "_id": "filetransfer@2.0.4",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/filetransfer",
+  "_nodeVersion": "0.10.33",
+  "_npmUser": {
+    "email": "fippo@goodadvice.pages.de",
+    "name": "fippo"
+  },
+  "_npmVersion": "2.7.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "filetransfer",
+    "raw": "filetransfer@^2.0.0",
+    "rawSpec": "^2.0.0",
+    "scope": null,
+    "spec": ">=2.0.0 <3.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/simplewebrtc"
+  ],
+  "_resolved": "https://registry.npmjs.org/filetransfer/-/filetransfer-2.0.4.tgz",
+  "_shasum": "cc98abbbdd431b29ed7427597940b43bcbca2107",
+  "_shrinkwrap": null,
+  "_spec": "filetransfer@^2.0.0",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/simplewebrtc",
+  "author": {
+    "email": "fippo@andyet.net",
+    "name": "Philipp Hancke"
+  },
+  "bugs": {
+    "url": "https://github.com/simplewebrtc/filetransfer/issues"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "iana-hashes": "^1.0.0",
+    "wildemitter": "1.x"
+  },
+  "description": "file sender and receiver via webrtc datachannels",
+  "devDependencies": {
+    "browserify": "3.x",
+    "precommit-hook": "^1.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "cc98abbbdd431b29ed7427597940b43bcbca2107",
+    "tarball": "https://registry.npmjs.org/filetransfer/-/filetransfer-2.0.4.tgz"
+  },
+  "gitHead": "87a44edfbda9f6adbd4275b1b01756a4e420e7f6",
+  "homepage": "https://github.com/simplewebrtc/filetransfer",
+  "keywords": [
+    "webrtc",
+    "simplewebrtc",
+    "filetransfer",
+    "datachannels"
+  ],
+  "license": "MIT",
+  "main": "filetransfer.js",
+  "maintainers": [
+    {
+      "email": "fippo@goodadvice.pages.de",
+      "name": "fippo"
+    }
+  ],
+  "name": "filetransfer",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simplewebrtc/filetransfer.git"
+  },
+  "scripts": {},
+  "version": "2.0.4"
+}

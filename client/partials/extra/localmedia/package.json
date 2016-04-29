@@ -1,0 +1,92 @@
+{
+  "_args": [
+    [
+      "localmedia@^1.0.2",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/simplewebrtc"
+    ]
+  ],
+  "_from": "localmedia@>=1.0.2 <2.0.0",
+  "_id": "localmedia@1.1.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/localmedia",
+  "_nodeVersion": "0.10.33",
+  "_npmUser": {
+    "email": "fippo@goodadvice.pages.de",
+    "name": "fippo"
+  },
+  "_npmVersion": "2.7.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "localmedia",
+    "raw": "localmedia@^1.0.2",
+    "rawSpec": "^1.0.2",
+    "scope": null,
+    "spec": ">=1.0.2 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/simplewebrtc"
+  ],
+  "_resolved": "http://registry.npmjs.org/localmedia/-/localmedia-1.1.2.tgz",
+  "_shasum": "fc78fe7f49968590d80e535d7bd56d73d7f54bed",
+  "_shrinkwrap": null,
+  "_spec": "localmedia@^1.0.2",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/simplewebrtc",
+  "bugs": {
+    "url": "https://github.com/legastero/localmedia/issues"
+  },
+  "dependencies": {
+    "getscreenmedia": "^1.0.0",
+    "getusermedia": "^1.0.0",
+    "hark": "^1.0.0",
+    "mediastream-gain": "^1.0.0",
+    "mockconsole": "0.0.x",
+    "webrtcsupport": "^1.0.0",
+    "wildemitter": "^1.0.0"
+  },
+  "description": "WebRTC abstraction for managing local media streams.",
+  "devDependencies": {
+    "browserify": "2.22.0",
+    "precommit-hook": "^1.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "fc78fe7f49968590d80e535d7bd56d73d7f54bed",
+    "tarball": "https://registry.npmjs.org/localmedia/-/localmedia-1.1.2.tgz"
+  },
+  "gitHead": "5d6ad92f04977a5fb2e8a671c022d887ab96479e",
+  "homepage": "https://github.com/legastero/localmedia",
+  "keywords": [
+    "webrtc",
+    "browser"
+  ],
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "lance@andyet.net",
+      "name": "lancestout"
+    },
+    {
+      "email": "fippo@goodadvice.pages.de",
+      "name": "fippo"
+    },
+    {
+      "email": "ops@andyet.net",
+      "name": "andyet"
+    },
+    {
+      "email": "xander.dumaine@gmail.com",
+      "name": "xdumaine"
+    }
+  ],
+  "name": "localmedia",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/legastero/localmedia.git"
+  },
+  "scripts": {},
+  "version": "1.1.2"
+}

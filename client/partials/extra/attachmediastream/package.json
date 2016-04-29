@@ -1,0 +1,76 @@
+{
+  "_args": [
+    [
+      "attachmediastream@1.0.1",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/simplewebrtc"
+    ]
+  ],
+  "_from": "attachmediastream@1.0.1",
+  "_id": "attachmediastream@1.0.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/attachmediastream",
+  "_npmUser": {
+    "email": "henrik@andyet.net",
+    "name": "henrikjoreteg"
+  },
+  "_npmVersion": "1.1.62",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "attachmediastream",
+    "raw": "attachmediastream@1.0.1",
+    "rawSpec": "1.0.1",
+    "scope": null,
+    "spec": "1.0.1",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/simplewebrtc"
+  ],
+  "_resolved": "http://registry.npmjs.org/attachmediastream/-/attachmediastream-1.0.1.tgz",
+  "_shasum": "1140d887747187cf926e55a27479aef5f687e77f",
+  "_shrinkwrap": null,
+  "_spec": "attachmediastream@1.0.1",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/simplewebrtc",
+  "author": {
+    "email": "henrik@andyet.net",
+    "name": "Henrik Joreteg"
+  },
+  "bugs": {
+    "url": "https://github.com/HenrikJoreteg/attachMediaStream/issues"
+  },
+  "dependencies": {},
+  "description": "cross-browser way to attach a media stream to a video element.",
+  "devDependencies": {
+    "browserify": "2.x"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "1140d887747187cf926e55a27479aef5f687e77f",
+    "tarball": "https://registry.npmjs.org/attachmediastream/-/attachmediastream-1.0.1.tgz"
+  },
+  "homepage": "https://github.com/HenrikJoreteg/attachMediaStream#readme",
+  "keywords": [
+    "browser",
+    "getUserMedia",
+    "browserify",
+    "WebRTC",
+    "video"
+  ],
+  "license": "MIT",
+  "main": "attachmediastream.js",
+  "maintainers": [
+    {
+      "email": "henrik@andyet.net",
+      "name": "henrikjoreteg"
+    }
+  ],
+  "name": "attachmediastream",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenrikJoreteg/attachMediaStream.git"
+  },
+  "version": "1.0.1"
+}

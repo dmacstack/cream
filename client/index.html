@@ -55,7 +55,7 @@
     <script>
     var socket = io.connect();
 
-    var creamApp = angular.module('creamApp', ['ngRoute','ngMaterial']);
+    var creamApp = angular.module('creamApp', ['ngRoute','ngMaterial','SimpleWebRTC']);
     creamApp.config(function($routeProvider){
       $routeProvider
       .when('/', {
@@ -81,6 +81,50 @@
       });
     });
     
+
+
+    ////
+
+
+
+      creamApp.run(function () {
+        if (window.MediaStreamTrack) {
+          MediaStreamTrack.getSources(function (sources) {
+            var videoSources = sources.filter(function (source) {
+              console.log('vid sources',videoSources)
+              return source.kind === 'video';
+            });
+            console.log('got video sources', videoSources);
+          });
+        }
+      });
+      creamApp.controller('BroadcastAppController', function ($scope) {
+        console.log('test')
+        $scope.hasStream = false;
+        $scope.roomName = '';
+        $scope.isBroadcasting = '';
+        // set to value if you want to connect to a specific source
+        // source id returned by navigator.getUserMedia
+        // $scope.sourceId = '140903818cd57b682ab8d6e23005d501ae3627fdffa0331a88ea580afff9eb71';
+        $scope.minWidth = 1280;
+        $scope.message = 'hi there';
+
+        $scope.prepare = function prepare() {
+          $scope.$broadcast('prepare');
+        };
+
+        $scope.start = function start() {
+          console.log('starting?')
+          $scope.$broadcast('start');
+        };
+
+        $scope.sendMessage = function sendMessage() {
+          $scope.$broadcast('messageAll', $scope.message);
+        };
+        $scope.$on('channelMessage', function (event, peer, message) {
+          console.log('message', message);
+        });
+      });
     //UserFactory 
     
       creamApp.factory('UserFactory', function($http, $location){

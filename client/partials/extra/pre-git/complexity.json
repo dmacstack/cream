@@ -1,0 +1,11 @@
+{
+  "all": {
+    "src": ["*.js", "!Gruntfile.js", "hooks/pre-common.js"],
+    "options": {
+      "errorsOnly": false,
+      "cyclomatic": 5,
+      "halstead": 15,
+      "maintainability": 100
+    }
+  }
+}

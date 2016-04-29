@@ -1,0 +1,97 @@
+{
+  "_args": [
+    [
+      "getscreenmedia@^1.0.0",
+      "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/localmedia"
+    ]
+  ],
+  "_from": "getscreenmedia@>=1.0.0 <2.0.0",
+  "_id": "getscreenmedia@1.5.3",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/getscreenmedia",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "email": "xander.dumaine@gmail.com",
+    "name": "xdumaine"
+  },
+  "_npmVersion": "2.11.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "getscreenmedia",
+    "raw": "getscreenmedia@^1.0.0",
+    "rawSpec": "^1.0.0",
+    "scope": null,
+    "spec": ">=1.0.0 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/localmedia"
+  ],
+  "_resolved": "https://registry.npmjs.org/getscreenmedia/-/getscreenmedia-1.5.3.tgz",
+  "_shasum": "b05b6740cc45b4cf16c4cf26831fc5cb251eb21c",
+  "_shrinkwrap": null,
+  "_spec": "getscreenmedia@^1.0.0",
+  "_where": "/Users/davidmacias/javascript/project_scaffold_example/ng-simple-webrtc/node_modules/localmedia",
+  "author": {
+    "email": "henrik@andyet.net",
+    "name": "Henrik Joreteg"
+  },
+  "bugs": {
+    "url": "https://github.com/HenrikJoreteg/getScreenMedia/issues"
+  },
+  "dependencies": {
+    "getusermedia": "^1.0.0"
+  },
+  "description": "A browser module for attempting to get access to a MediaStream of a user's screen. With a nice node-like API.",
+  "devDependencies": {
+    "browserify": "2.x"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "b05b6740cc45b4cf16c4cf26831fc5cb251eb21c",
+    "tarball": "https://registry.npmjs.org/getscreenmedia/-/getscreenmedia-1.5.3.tgz"
+  },
+  "gitHead": "95c11854096498ce5e0fcb32faf103244dbe71e4",
+  "homepage": "https://github.com/HenrikJoreteg/getScreenMedia",
+  "keywords": [
+    "browser",
+    "getUserMedia",
+    "screen sharing",
+    "WebRTC",
+    "browserify"
+  ],
+  "license": "MIT",
+  "main": "getscreenmedia.js",
+  "maintainers": [
+    {
+      "email": "henrik@andyet.net",
+      "name": "henrikjoreteg"
+    },
+    {
+      "email": "fippo@goodadvice.pages.de",
+      "name": "fippo"
+    },
+    {
+      "email": "lance@andyet.net",
+      "name": "lancestout"
+    },
+    {
+      "email": "ops@andyet.net",
+      "name": "andyet"
+    },
+    {
+      "email": "xander.dumaine@gmail.com",
+      "name": "xdumaine"
+    }
+  ],
+  "name": "getscreenmedia",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenrikJoreteg/getScreenMedia.git"
+  },
+  "scripts": {},
+  "version": "1.5.3"
+}
