@@ -1,53 +1,97 @@
- <div class="container">
-   <h1> Hello {{ currentUser }}</h1>
-      <div class="navbar navbar-fixed-top navbar-inverse">
-        <div class="navbar-inner">
-          <div class="pull-right">
-            <a href="https://www.youtube.com/watch?v=PBwAxmrE194" class="brand">Insert some junk here</a>
-          </div>
-        </div>
-      <div class="page-header">
-        <h1>Room: {{ room }}</h1>
-      </div>
-      <div class="row">
-        <div id="user_list" class="span3">
-          <ul style="width:200px; height:100px; background-color:lightgrey" >
-              <li ng-repeat="user in users">{{ user }}</li>
-          </ul>
-        </div>
-        <div id="chatroom_display" ng-hide="hideRoom">
-          <form ng-submit="selectChatRoom()">
-            <input type="text" ng-model="newChat.room">
-            <button>Submit</button>
-          </form>
-        </div>
-        <div id="other_rooms">
-          <form ng-submit="pickRoom()">
-            <select ng-model="chooseRoom.room" ng-options="openRoom for openRoom in openRooms">
-            </select>
-            <button>Select Room</button>
-          </form>
-        </div>
-          <button ng-click="leaveRoom()">Leave</button>
-        <div class="span9">
-          <div id = "message_div">
-          <table class="table table-striped table-bordered">
-            <tbody>
-              <tr ng-repeat="msg in messages">
-                <td class="span2" ng-bind="msg.name"></td>
-                <td class="span7" ng-bind="msg.text"></td>
-              </tr>
-            </tbody>
-          </table>
-          </div>
-          <div class="row controls">
-            <form ng-submit="send()">
-              <div class="input-append span7">
-                <textarea class="span6" ng-model="text" placeholder="Write something {{ currentUser.name }}" autofocus=true></textarea> <br/>
-                <input type="submit" id= "round_button" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
-              </div>
+<link rel="stylesheet" href="../css/chat.css">
+<div class="container">
+    
+    <h1>Hello {{ currentUser }}</h1>
+    <h1>{{ room }}</h1>
+    <div layout="row">
+      <md-sidenav md-component-id="left" class="md-sidenav-left">
+          <md-input-container>
+            <form ng-submit="selectChatRoom()">
+                <label for="testInput">Create a New Room</label>
+                <input id="testInput" type="text" ng-model="newChat.room" md-autofocus>
+                <button type="submit" md-button>Submit</button>
             </form>
-          </div>
-        </div>
-      </div>
+                
+                <div id="chatroom_display" ng-hide="hideRoom">
+                </div>
+
+                <div id="other_rooms">
+                    <form ng-submit="pickRoom()">
+                        <select ng-model="chooseRoom.room" ng-options="openRoom for openRoom in openRooms"></select>
+                        <button type="submit" md-button>Select Room</button>
+                    </form>
+                </div>
+                <button type="submit" ng-click="leaveRoom()" md-button>Leave</button>
+                <button type="submit" ng-click="logout()" md-button>Logout</button>
+          </md-input-container>
+      </md-sidenav>
+        <md-button ng-click="openLeftMenu()">
+          Menu
+        </md-button>
     </div>
+
+    <div id="user_list">
+        <div class="userList">
+            <ul style="width:100px; height:38.9%; background-color:lightgrey">
+               <li ng-repeat="user in users">{{ user }}</li>
+            </ul>
+        </div>
+    </div>
+    <div id="message_div">
+        <table>
+            <tbody>
+                <tr ng-repeat="msg in messages">
+                    <td ng-bind="msg.name"></td>
+                    <td ng-bind="msg.text"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="message_bar">
+            <form ng-submit="send()">
+                <textarea class="textsomething" ng-model="text" placeholder="Write something {{ currentUser.name }}" autofocus=true></textarea> <br/>
+                <input type="submit" id="round_button" value="Send" ng-disabled="!text">
+            </form>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- <div layout="row" layout-wrap>
+  <md-content layout="column" flex="80" flex-sm="100">
+    <md-content style="height: 60vh;">
+      {{roomItemCtrl.users2}}
+      <md-list scroll="roomItemCtrl.messages">
+        <md-subheader id="message_div" class="md-info">Messages in room {{ room }}</md-subheader>
+        <message ng-repeat="message in roomItemCtrl.messages" message="message"
+                 author="roomItemCtrl.allusers[message.authorId]"
+                 ng-class="{ 'repeated-author' : $index>0 && message.authorId == roomItemCtrl.messages[$index-1].authorId}"></message>
+      </md-list>
+    </md-content>
+    <md-content layout-padding layout="column">
+      <md-input-container class="md-accent">
+        <label>New Message</label>
+        <input ng-enter="roomItemCtrl.createMessage()" ng-model="roomItemCtrl.newMessage" md-maxlength="350"/>
+      </md-input-container>
+    </md-content>
+  </md-content>
+  <md-content class="side-nav room-users" hide-sm layout="column" flex="18">
+    <md-list layout-fill>
+      <md-subheader class="md-accent">Available users</md-subheader>
+
+        <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in roomItemCtrl.users">
+        <img ng-src='{{ contact.imageUrl }}' class="md-avatar" alt="{{contact.name}}"/>
+        <div class="md-list-item-text compact">
+          <h3>{{contact | fullname }}</h3>
+          <p>@{{contact.username}}</p>
+        </div>
+        <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div> -->

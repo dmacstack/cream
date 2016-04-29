@@ -19,7 +19,7 @@ module.exports = function(router, passport, io){
     });
 
     router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/success', // redirect to the secure profile section
+        successRedirect : '/success', // redirect to the chat profile section
         failureRedirect : '/', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));

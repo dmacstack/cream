@@ -13,45 +13,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-
-    <style>
-      body {
-        padding-top: 60px;
-      }
-      #round_button {
-        border-radius: 5px;
-        float:right;
-      }
-      #message_div {
-        overflow: scroll;
-        height: 300px;
-      }
-      
-      .tabsdemoDynamicHeight md-content {
-        background-color: transparent !important;
-      }
-
-      .tabsdemoDynamicHeight md-content md-tabs {
-        background: #f6f6f6;
-        border: 1px solid #e1e1e1;
-      }
-
-      .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-        background: white;
-      }
-
-      .tabsdemoDynamicHeight md-content h1:first-child {
-        margin-top: 0;
-      }
-
-
-      /*
-      Copyright 2016 Google Inc. All Rights Reserved. 
-      Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
-      */
-    </style>
-   
-  
     <script>
     var socket = io.connect();
 
@@ -75,23 +36,27 @@
         controller: 'usersController'
       });
     });
-    
+
     //UserFactory 
     
       creamApp.factory('UserFactory', function($http, $location){
+
+
+  
 
        var factory = {};
        var users = [];
         // users = [{name:'john'},{name:'jane'},{name:'joe'}];
        var currentUser = null;
         
-        factory.addUser = function(user, callback){
+       factory.addUser = function(user, callback){
 
           $http.post('/signup', user).then(function(response){
-            console.log('**********************************************');
-            console.log(response);
-            console.log('**********************************************');
+            // console.log('**********************************************');
+            // console.log(response);
+            // console.log('**********************************************');
             currentUser = response.config.data.name;
+            console.log(currentUser)
             if (currentUser) {
               $location.path('/chat');
             }
@@ -101,9 +66,9 @@
 
         factory.loginUser = function(loginInfo, callback) {
           $http.post('/login', {user: loginInfo, socketID: socket.id}).then(function(response){
-            console.log('**********************************************');
-            console.log(response);
-            console.log('**********************************************');
+            // console.log('**********************************************');
+            // console.log(response);
+            // console.log('**********************************************');
             currentUser = response.data.local.name;
             if (currentUser) {
               $location.path('/chat');
@@ -153,19 +118,25 @@
 
       });
      //chatController
-     creamApp.controller('chatsController', function($scope, $location, UserFactory, ChatFactory) {
+     creamApp.controller('chatsController', function($scope, $location, $mdSidenav, UserFactory, ChatFactory) {
       console.log(socket.id);
         // var socket = io.connect();
+
         var currentlist;
         
         $scope.users = [];
         $scope.messages = [];
         $scope.text = '';
+
     
 
         UserFactory.getUser(function(currentUser){
-          console.log(currentUser);
-          $scope.currentUser = currentUser;
+          // console.log(currentUser);
+          // $scope.currentUser = currentUser;
+          // if(currentUser == undefined){
+          //   location.reload();   
+          //   $location.path('/');
+          // }
           socket.emit('alive_user', currentUser);
         });
 
@@ -220,6 +191,9 @@
         
         $scope.selectChatRoom = function(){
           // console.log($scope.newChat);
+          // console.log('inside selectChatroom');
+          $mdSidenav('left').close()
+          socket.emit('leaveRoom', {});
           socket.emit('room', $scope.newChat);
           $scope.newChat = {};
           $scope.toggle();
@@ -227,7 +201,9 @@
         }
       
         $scope.pickRoom = function (){
-          console.log($scope.chooseRoom);
+          // console.log($scope.chooseRoom);
+          $mdSidenav('left').close()
+          socket.emit('leaveRoom', {});    
           socket.emit('room', $scope.chooseRoom);
           $scope.chooseRoom = {};
           socket.emit('sendOpenRooms', {}); 
@@ -235,11 +211,24 @@
 
 
         $scope.leaveRoom = function(){
-          socket.emit('leaveRoom', {});      
+          $mdSidenav('left').close()
+          $scope.users = [];
+          $scope.room = "";
+          socket.emit('leaveRoom', {});    
+        }
+
+        $scope.logout = function(){
+          // socket.disconnect();
+          location.reload();   
+          $location.path('/');   
         }
 
         $scope.toggle = function(){
           $scope.hideRoom = !$scope.hideRoom;
+        }
+
+        $scope.openLeftMenu = function() {
+          $mdSidenav('left').toggle();
         }
 
       });
@@ -247,9 +236,6 @@
     </script>
   </head>
   <body ng-app = "creamApp">
-    
-    <a href="#/"> Login Page </a> | <a href="#/chat"> Chat </a> | <a href="#/video"> Video </a>
-    <br><br>
     <div ng-view = "">
     <div id="container">
      

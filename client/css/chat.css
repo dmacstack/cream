@@ -1,0 +1,39 @@
+h1 {
+	text-align: center;
+}
+
+ul {
+	list-style-type: none;
+	margin-left: -5px;
+}
+
+.container {
+	padding-left: 12%;
+	margin-top: 100px;
+}
+
+#message_div{
+	width: 70%;
+	height: 585px;
+}
+
+#message_div, #user_list{
+	vertical-align: top;
+	display: inline-block;
+}
+
+.textsomething{
+	width: 100%;
+	overflow-y: hidden;
+}
+
+.message_bar{
+	margin-left: 140px;
+	width: 70%;
+}
+
+#message_div{
+	height: 457px;
+	overflow-y: scroll;
+	border: 1px solid black;
+}

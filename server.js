@@ -75,28 +75,39 @@ io.on('connection', function (socket) {
 
       io.sockets.in(room).emit('userList', {clients: clients});
       socket.emit('sendRoom', roomName); 
-      console.log('*********');
-
+      
     })
 
     socket.on('sendOpenRooms', function(){
-        var openRooms =[];
-        var arrRooms = (Object.keys(io.sockets.adapter.rooms));
-          for(var i=0; i<arrRooms.length;i++){
-            var checkRoom = arrRooms[i].substring(0,2)
-              if(checkRoom == '/#') {
-              } else { 
-                openRooms.push(arrRooms[i]);
-              }
-          }    
-              console.log('XXXXXXXXXXX');
-              console.log(openRooms);    
+      var openRooms =[];
+      var arrRooms = (Object.keys(io.sockets.adapter.rooms));
+        for(var i=0; i<arrRooms.length;i++){
+          var checkRoom = arrRooms[i].substring(0,2)
+            if(checkRoom == '/#') {
+            } else { 
+              openRooms.push(arrRooms[i]);
+            }
+        }       
 
-    socket.emit('sendArray', {openRooms: openRooms })
+      io.sockets.emit('sendArray', {openRooms: openRooms })
     })
 
     socket.on('leaveRoom', function(data){
       socket.leave(room);
+
+      if(room !== undefined){
+        console.log('here')
+        var arrClients = (Object.keys(io.sockets.adapter.rooms[room].sockets));
+        //console.log(io.sockets.clients(roomName));
+        var clients = [];
+        //this loop gets the name of the user of all the sockets connected to the room
+        for(var i=0; i<arrClients.length;i++){
+         clients.push(io.sockets.connected[arrClients[i]].username);
+      }
+      io.sockets.in(room).emit('userList', {clients: clients});
+      room = undefined;
+    }
+
     });
     
     socket.on('disconnect', function () {
